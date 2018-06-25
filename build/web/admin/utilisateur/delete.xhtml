@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <ui:composition>
+
+
+        <div id="deleteDialog" class="modal fade" data-backdrop="true" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <h:form id="deleteDialogForm" styleClass="form-horizontal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 class="modal-title">#{bundle.Edit}</h3>
+                        </div> <!-- /.modal-header -->
+                        <div class="modal-body">
+                            
+                            <p> Voulez-vous suprimer l'utilisateur 
+                                <b>#{utilisateurBean.selectedUtilisateur.nom} 
+                                    #{utilisateurBean.selectedUtilisateur.prenoms}
+                                    (#{utilisateurBean.selectedUtilisateur.login})</b></p>
+                        
+                            
+                        </div> <!-- /.modal-body -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-xs"
+                                    style="font-size: 11px;vertical-align: middle;line-height: 1;" 
+                                    jsf:actionListener="#{utilisateurBean.removeUser}" >
+                                <i class="glyphicon glyphicon-ok"></i>Delete
+                                #{bundle.Action}
+                            </button>
+                            <button type="button" class="btn btn-default  btn-xs" data-dismiss="modal" style="font-size: 11px;vertical-align: middle;line-height: 1;">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                #{bundle.Close}
+                            </button>
+                        </div> <!-- /.modal-footer -->
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:composition>
+
+</html>

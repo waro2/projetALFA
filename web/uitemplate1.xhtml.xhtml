@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+       
+
+        <ui:composition template="./template/pivot.xhtml">
+             <ui:define name="JquaryJs">
+            
+        </ui:define>
+
+            <ui:define name="core">
+                <div class="col-md-12">                    
+                    <div class="head clearfix">
+                        <div class="isw-grid"></div>
+                        <h1>Simple table</h1>      
+                        <ul class="buttons">
+                            <li><a href="#" class="isw-download"></a></li>                                                        
+                            <li><a href="#" class="isw-attachment"></a></li>
+                            <li>
+                                <a href="#" class="isw-settings"></a>
+                                <ul class="dd-list">
+                                    <li><a href="#"><span class="isw-plus"></span> New document</a></li>
+                                    <li><a href="#"><span class="isw-edit"></span> Edit</a></li>
+                                    <li><a href="#"><span class="isw-delete"></span> Delete</a></li>
+                                </ul>
+                            </li>
+                        </ul>                        
+                    </div>
+
+                    <p:dataTable id="incarcerationTable" var="item"
+                                 selection="#{messageBean.selectedEssais}"
+                                 value="#{messageBean.listEssais}"
+                                 emptyMessage="#{bundle.EmptyListMsg}"
+                                 rowKey="#{item.input1}"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30"
+                                 sortMode="multiple"
+                                 filteredValue="#{messageBean.filteredList}"
+                                 currentPageReportTemplate="({startRecord} #{bundle.PaginationTemplate_var1} {endRecord} #{bundle.PaginationTemplate_var2} {totalRecords} #{bundle.PaginationTemplate_var3} {currentPage} #{bundle.PaginationTemplate_var2} {totalPages})"
+                                 pageLinks="5"
+                                 rowIndexVar="rowIndex"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} 
+                                 {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"> 
+
+                        <p:column headerText="ID"  sortBy="#{item.input1}" 
+                                  filterBy="#{item.input1}" filterMatchMode="contains">
+                            <h:outputText value=" #{item.input1}" />
+                        </p:column>
+                        <p:column headerText="Deux label"  sortBy="#{item.input2}" filterBy="#{item.input2}">
+                            <h:outputText value=" #{item.input2}" />
+                        </p:column>
+                        <p:column headerText="Sélection"  sortBy="#{item.selection}" filterBy="#{item.selection}">
+                            <h:outputText value=" #{item.selection}" />
+                        </p:column>
+                        <p:column headerText="Sélection 2"  sortBy="#{item.selection2}" filterBy="#{item.selection2}">
+                            <h:outputText value=" #{item.selection2}" />
+                        </p:column>
+                        <p:column headerText="Date"  sortBy="#{item.date1}" filterBy="#{item.date1}">
+                            <h:outputText value=" #{item.date1}" />
+                        </p:column>
+                        <p:column headerText="#{bundle.Action}" styleClass="actionWidth"> 
+                            <p:commandLink id="viewButton" value="#{null}" title="#{bundle.Details}" styleClass="btn btn-info btn-xs"
+                                           style="border-radius: 0px; margin-right: 1px;">
+                                <i class="i-zoom-out"/>
+
+                                <f:setPropertyActionListener value="#{item}" target="#{messageBean.selectedEssai}" />
+                            </p:commandLink>
+                            <p:commandLink id="editButton" value="#{null}" title="#{bundle.Edit}" styleClass="btn btn-primary btn-xs"
+                                           style="border-radius: 0px; margin-right: 1px;">
+                                <i class="i-pencil"/>
+                                <f:setPropertyActionListener value="#{item}" target="#{messageBean.selectedEssai}" />
+                            </p:commandLink>
+
+                        </p:column>
+                    </p:dataTable>
+                </div>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

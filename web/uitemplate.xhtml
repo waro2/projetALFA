@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/template/pivot.xhtml">
+
+
+            <ui:define name="core">
+                <h:form id="formeEx" styleClass="form-horizontal">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="head clearfix">
+                                <div class="isw-documents"></div>
+                                <h1>Text fields</h1>
+                            </div>
+                            <div class="block-fluid">                        
+
+                                <div class="row-form clearfix">
+                                    <p:outputLabel for="input" value="Input" styleClass="col-md-3 control-label"/>
+                                    <div class="col-md-4">
+                                        <p:inputText id="input" value="" required="true" 
+                                                     placeholder="Votre text" styleClass="form-control"/>
+                                    </div>
+                                </div> 
+
+                                <div class="row-form clearfix">
+                                    <p:outputLabel for="password" value="Password" styleClass="col-md-3 control-label"/>
+                                    <div class="col-md-4">
+                                        <p:password id="password" value="" feedback="true" inline="true" />
+                                    </div>
+                                </div>                         
+
+
+
+                                <div class="row-form clearfix">
+                                    <p:outputLabel for="textarea" value="Description" styleClass="col-md-3 control-label"/>
+                                    <div class="col-md-4">
+                                        <p:inputTextarea id="textarea" rows="5" cols="30"   autoResize="false" />
+                                        <h:outputText id="display" />
+                                    </div>
+                                </div>                        
+
+
+                                <div class="row-form clearfix">
+                                    <p:outputLabel for="selection" value="Selection" styleClass="col-md-3 control-label"/>
+                                    <div class="col-md-4">
+                                        <p:selectOneMenu id="selection" value="#{basicView.option}">
+                                            <f:selectItem itemLabel="Select One" itemValue="" />
+                                            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                                            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                                            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+
+
+                                <div class="row-form clearfix">
+                                    <p:outputLabel for="selection2" value="Selection2" styleClass="col-md-3 control-label"/>
+                                    <div class="col-md-4">
+                                        <p:selectOneMenu id="selection2" value="#{messageBean.selection}" 
+                                                         required="false" filter="true" filterMatchMode="contains">
+                                            <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{messageBean.listChaine}" var="selection" itemValue="#{selection}"
+                                                           itemLabel="#{selection.toUpperCase()}"
+                                                           />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div> 
+
+
+                                <div class="row-form clearfix">
+
+                                    <div class="col-md-12">                    
+                                        <div class="head clearfix">
+                                            <div class="isw-grid"></div>
+                                            <h1>Simple table</h1>      
+                                            <ul class="buttons">
+                                                <li><a href="#" class="isw-download"></a></li>                                                        
+                                                <li><a href="#" class="isw-attachment"></a></li>
+                                                <li>
+                                                    <a href="#" class="isw-settings"></a>
+                                                    <ul class="dd-list">
+                                                        <li><a href="#"><span class="isw-plus"></span> New document</a></li>
+                                                        <li><a href="#"><span class="isw-edit"></span> Edit</a></li>
+                                                        <li><a href="#"><span class="isw-delete"></span> Delete</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>                        
+                                        </div>                              
+                                        <p:dataTable id="incarcerationTable" var="item"
+                                                     selection="#{messageBean.selectedEssais}"
+                                                     value="#{messageBean.listEssais}"
+                                                     emptyMessage="#{bundle.EmptyListMsg}"
+                                                     rowKey="#{item.input1}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     rowsPerPageTemplate="10,20,30"
+                                                     sortMode="multiple"
+                                                     filteredValue="#{messageBean.filteredList}"
+                                                     currentPageReportTemplate="({startRecord} #{bundle.PaginationTemplate_var1} {endRecord} #{bundle.PaginationTemplate_var2} {totalRecords} #{bundle.PaginationTemplate_var3} {currentPage} #{bundle.PaginationTemplate_var2} {totalPages})"
+                                                     pageLinks="5"
+                                                     rowIndexVar="rowIndex"
+                                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} 
+                                                     {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}"> 
+
+                                            <p:column headerText="ID"  sortBy="#{item.input1}" 
+                                                      filterBy="#{item.input1}" filterMatchMode="contains">
+                                                <h:outputText value=" #{item.input1}" />
+                                            </p:column>
+                                            <p:column headerText="Deux label"  sortBy="#{item.input2}" filterBy="#{item.input2}">
+                                                <h:outputText value=" #{item.input2}" />
+                                            </p:column>
+                                            <p:column headerText="Sélection"  sortBy="#{item.selection}" filterBy="#{item.selection}">
+                                                <h:outputText value=" #{item.selection}" />
+                                            </p:column>
+                                            <p:column headerText="Sélection 2"  sortBy="#{item.selection2}" filterBy="#{item.selection2}">
+                                                <h:outputText value=" #{item.selection2}" />
+                                            </p:column>
+                                            <p:column headerText="Date"  sortBy="#{item.date1}" filterBy="#{item.date1}">
+                                                <h:outputText value=" #{item.date1}" />
+                                            </p:column>
+                                            <p:column headerText="#{bundle.Action}" styleClass="actionWidth"> 
+                                                <p:commandLink id="viewButton" value="#{null}" title="#{bundle.Details}" styleClass="btn btn-info btn-xs"
+                                                               style="border-radius: 0px; margin-right: 1px;">
+                                                    <i class="i-zoom-out"/>
+
+                                                    <f:setPropertyActionListener value="#{item}" target="#{messageBean.selectedEssai}" />
+                                                </p:commandLink>
+                                                <p:commandLink id="editButton" value="#{null}" title="#{bundle.Edit}" styleClass="btn btn-primary btn-xs"
+                                                               style="border-radius: 0px; margin-right: 1px;">
+                                                    <i class="i-pencil"/>
+                                                    <f:setPropertyActionListener value="#{item}" target="#{messageBean.selectedEssai}" />
+                                                </p:commandLink>
+
+                                            </p:column>
+                                        </p:dataTable>
+                                        <!--                                    </ui:define>-->
+                                    </div>
+
+
+
+
+                                    <div class="footer tar">
+                                        <button class="btn btn-default">VALIDER</button>
+                                    </div>                            
+                                </div>
+
+                            </div>
+
+                        </div>
+
+</div>
+                </h:form>
+
+                <!--                <h:form id="formeEx" styleClass="form-horizontal">
+                                                <div class="content np">                                        
+                                                    <div class="controls-row">
+                                                        <p:outputLabel for="inputId" value="Un label" styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <p:inputText id="inputId" value="#{messageBean.input1}" required="true" placeholder="Un label"
+                                                                         styleClass="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="controls-row">
+                                                        <p:outputLabel for="selectId" value="Deux label" styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <p:inputText id="selectId" value="#{messageBean.input2}" required="true" placeholder="2e label"
+                                                                         styleClass="form-control"/>
+                                                        </div>
+                
+                                                    </div>
+                
+                                                    <div class="controls-row">
+                                                        <p:outputLabel for="selectSimple" value="Select simple" styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <h:selectOneMenu id="selectSimple" value="#{messageBean.selection}" 
+                                                                             required="false" styleClass="form-control">
+                                                                <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                                                                <f:selectItems value="#{messageBean.listChaine}"
+                                                                               var="selection"
+                                                                               itemValue="#{selection}"
+                                                                               itemLabel="#{selection.toUpperCase()}"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="controls-row">
+                                                        <p:outputLabel value="Sélection" for="departementLibelle" styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <p:selectOneMenu id="departementLibelle" value="#{messageBean.selection}" 
+                                                                             required="false" filter="true" filterMatchMode="contains">
+                                                                <f:selectItem itemValue="#{null}" itemLabel="#{bundle.SelectOneMessage}"/>
+                                                                <f:selectItems value="#{messageBean.listChaine}" var="selection" itemValue="#{selection}"
+                                                                               itemLabel="#{selection.toUpperCase()}"
+                                                                               />
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="controls-row">
+                                                        <p:outputLabel value="Sélection 2" for="selection2" styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <p:autoComplete value="#{messageBean.selection2}" id="selection2"
+                                                                            minQueryLength="2" required="false"
+                                                                            completeMethod="#{messageBean.completeText}"    
+                                                                            var="selectionItem2" itemLabel="#{selectionItem2}"
+                                                                            itemValue="#{selectionItem2}"  forceSelection="true"   
+                                                                            dropdown="true" placeholder="Commencer par saisir"
+                                                                            />
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="controls-row">
+                                                        <p:outputLabel 
+                                                            value="Sélection 3" for="selection3"
+                                                            styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <p:selectCheckboxMenu id="selection3" value="#{messageBean.selectedCities}" label="Cities"
+                                                                                  filter="true" filterMatchMode="contains" required="false">
+                                                                <f:selectItems value="#{messageBean.cities}" />
+                                                            </p:selectCheckboxMenu>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="controls-row">
+                                                        <p:outputLabel 
+                                                            value="Sélection 4" for="selection4" 
+                                                            styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <p:autoComplete value="#{messageBean.selectedCities}" id="selection4"
+                                                                            minQueryLength="2" required="false"
+                                                                            completeMethod="#{messageBean.completeCitie}"    
+                                                                            var="selectionItem4" itemLabel="#{selectionItem4}"
+                                                                            itemValue="#{selectionItem4}"  forceSelection="true"   
+                                                                            dropdown="false" placeholder="Commencer par saisir"
+                                                                            multiple="true"
+                                                                            />
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="controls-row">
+                                                        <p:outputLabel 
+                                                            value="DateTime" for="DateTime" 
+                                                            styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                                                            <p:calendar id="DateTime" required="false" placeholder="Date et heure"
+                                                                        value="#{messageBean.date1}" pattern="dd/MM/yyyy HH:mm:ss"
+                                                                        navigator="true" showOn="button"/>
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="controls-row">
+                                                        <p:outputLabel 
+                                                            value="Console" for="console" 
+                                                            styleClass="col-sm-3 control-label"/>
+                                                        <div class="col-sm-9">
+                
+                                                            <p:selectOneRadio id="console" value="#{messageBean.selectedConsole}" layout="grid" columns="1" required="false">
+                                                                <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                                                                <f:selectItem itemLabel="PS4" itemValue="PS+" />
+                                                                <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                                                            </p:selectOneRadio>
+                
+                                                        </div>
+                                                    </div>
+                
+                                                    <div class="controls-row">
+                                                        <p:outputLabel 
+                                                            value="CheckBox" for="checkbox" 
+                                                            styleClass="col-sm-3 control-label" style="padding-top: 0px"/>
+                                                        <div class="col-sm-9">
+                                                            <p:selectManyCheckbox  id="checkbox" value="#{messageBean.selectedConsoles}" layout="grid" columns="1" required="false">
+                                                                <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                                                                <f:selectItem itemLabel="PS4" itemValue="PS+" />
+                                                                <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                                                            </p:selectManyCheckbox >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="footer">
+                                                    <div class="side">
+                                                        <div class="form-actions col-sm-offset-3">
+                                                            <p:commandButton value="Valider" update=":msgForm:msg @form :ajoutListForm" actionListener="#{messageBean.actionListener}" 
+                                                                             oncomplete="updateGritter(xhr);" 
+                                                                             styleClass="btn btn-primary btn-xs" icon="i-checkmark-2"/>
+                
+                                                            <p:commandButton value="#{bundle.Cancel}" styleClass="btn btn-default btn-xs" icon="i-cancel-2" process="@this"
+                                                                             actionListener="#{messageBean.reset}" update="@form :msgForm:msg">
+                                                                <p:resetInput target="formeEx"/>
+                                                            </p:commandButton>
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </h:form>-->
+
+                <!--bouton-->
+
+
+
+
+                <!--tables-->
+<!--                <p:dataTable var="car" value="#{dtBasicView.cars}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{car.id}" />
+                    </p:column>
+
+                    <p:column headerText="Year">
+                        <h:outputText value="#{car.year}" />
+                    </p:column>
+
+                    <p:column headerText="Brand">
+                        <h:outputText value="#{car.brand}" />
+                    </p:column>
+
+                    <p:column headerText="Color">
+                        <h:outputText value="#{car.color}" />
+                    </p:column>
+                </p:dataTable>-->
+
+
+                <!--boite de dialogue-->
+
+                <!--                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:commandButton value="Dialog" type="button" onclick="PF('dlg3').show();" /> 
+                                </h:panelGrid>-->
+                <!--                <p:dialog header="Dialog" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">
+                                    <h:outputText value="c'est ma boite de dialog." />
+                                </p:dialog>-->
+
+
+                <!--bouton-->
+                <!--                <h:form>
+                
+                
+                                    <p:growl id="growl" life="2000" />
+                                    <p:commandButton value="Non-Ajax Submit" id="nonAjax" actionListener="#{buttonView.buttonAction}" ajax="false" />
+                                    checbox
+                                    <p:selectManyCheckbox id="grid2" value="#{checkboxView.selectedCities2}" layout="responsive" columns="3">
+                                        <f:selectItems value="#{checkboxView.cities}" var="city" itemLabel="#{city}" itemValue="#{city}" />
+                                    </p:selectManyCheckbox>
+                                    bouton pour selectionner
+                
+                                    <p:outputLabel for="city" value="Editer: " />
+                                    <p:selectOneMenu id="city" value="#{selectOneMenuView.city}" effect="fold" editable="true">
+                                        <f:selectItem itemLabel="Select One" itemValue="" />
+                                        <f:selectItems value="#{selectOneMenuView.cities}" />
+                                    </p:selectOneMenu>
+                
+                                    <p:growl id="msgs" />
+                                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                        <h:outputText value="souscrire: " />
+                                        <p:selectBooleanButton id="value2" value="#{selectBooleanView.value2}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
+                                            <p:ajax update="msgs" listener="#{selectBooleanView.addMessage}" />
+                                        </p:selectBooleanButton>
+                                    </h:panelGrid>
+                
+                                    details sur une personne
+                                    <h:form>
+                                        <p:growl id="growl" sticky="true" showDetail="true"/>
+                
+                                        <p:wizard flowListener="#{userWizard.onFlowProcess}">
+                                            <p:tab id="personal" title="Personal">
+                                                <p:panel header="Personal Details">
+                                                    <p:messages />
+                                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                                        <h:outputText value="Firstname: *" />
+                                                        <p:inputText value="#{userWizard.user.firstname}" required="true" label="Firstname"/>
+                
+                                                        <h:outputText value="Lastname: *" />
+                                                        <p:inputText value="#{userWizard.user.lastname}" required="true" label="Lastname"/>
+                
+                                                        <h:outputText value="Age: " />
+                                                        <p:inputText value="#{userWizard.user.age}" />
+                
+                                                        <h:outputText value="Skip to last: " />
+                                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                                    </h:panelGrid>
+                                                </p:panel>
+                                            </p:tab>
+                
+                                            <p:tab id="address" title="Address">
+                                                <p:panel header="Address Details">
+                                                    <p:messages />
+                                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                                        <h:outputText value="Street: " />
+                                                        <p:inputText value="#{userWizard.user.street}" />
+                
+                                                        <h:outputText value="Postal Code: " />
+                                                        <p:inputText value="#{userWizard.user.postalCode}" />
+                
+                                                        <h:outputText value="City: " />
+                                                        <p:inputText value="#{userWizard.user.city}" />
+                
+                                                        <h:outputText value="Skip to last: " />
+                                                        <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                                                    </h:panelGrid>
+                                                </p:panel>
+                                            </p:tab>
+                
+                                            <p:tab id="contact" title="Contact">
+                                                <p:panel header="Contact Information">
+                                                    <p:messages />
+                                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                                        <h:outputText value="Email: *" />
+                                                        <p:inputText value="#{userWizard.user.email}" required="true" label="Email"/>
+                
+                                                        <h:outputText value="Phone: " />
+                                                        <p:inputText value="#{userWizard.user.phone}"/>
+                
+                                                        <h:outputText value="Additional Info: " />
+                                                        <p:inputText value="#{userWizard.user.info}"/>
+                                                    </h:panelGrid>
+                                                </p:panel>
+                                            </p:tab>
+                
+                                            <p:tab id="confirm" title="Confirmation">
+                                                <p:panel header="Confirmation">
+                                                    <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                                            <h:outputText value="Firstname: " />
+                                                            <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
+                
+                                                            <h:outputText value="Lastname: " />
+                                                            <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
+                
+                                                            <h:outputText value="Age: " />
+                                                            <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
+                                                        </h:panelGrid>
+                
+                                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                                            <h:outputText value="Street: " />
+                                                            <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
+                
+                                                            <h:outputText value="Postal: " />
+                                                            <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
+                
+                                                            <h:outputText value="City: " />
+                                                            <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
+                                                        </h:panelGrid>
+                
+                                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                                            <h:outputText value="Email: " />
+                                                            <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
+                
+                                                            <h:outputText value="Phone " />
+                                                            <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
+                
+                                                            <h:outputText value="Info: " />
+                                                            <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
+                
+                                                            <h:outputText />
+                                                            <h:outputText />
+                                                        </h:panelGrid>
+                                                    </h:panelGrid>
+                
+                                                    <p:commandButton value="Submit" actionListener="#{userWizard.save}" update="growl" process="@this"/>
+                                                </p:panel>
+                                            </p:tab>
+                                        </p:wizard>
+                                    </h:form>
+                                </h:form>-->
+
+                <!--boite de dialog-->
+                <!--                <h:form>           
+                                    <p:growl id="message" showDetail="true" />
+                
+                                    <p:commandButton value="effacer" actionListener="#{dialogView.destroyWorld}" update="message">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                        <p:commandButton value="NoN" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    </p:confirmDialog>
+                                </h:form>-->
+                <!--bar de menu-->
+                <!--                <h:form>  
+                                    <p:growl id="messages"/>
+                
+                                    <p:menubar>
+                                        <p:submenu label="File" icon="ui-icon-document">
+                                            <p:submenu label="New" icon="ui-icon-contact">
+                                                <p:menuitem value="Project" url="#" />
+                                                <p:menuitem value="Other" url="#" />
+                                            </p:submenu>
+                                            <p:menuitem value="Open" url="#" />
+                                            <p:separator />
+                                            <p:menuitem value="Quit" url="#" />
+                                        </p:submenu>
+                
+                                        <p:submenu label="Edit" icon="ui-icon-pencil">
+                                            <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                                            <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                        </p:submenu>
+                
+                                        <p:submenu label="Help" icon="ui-icon-help">
+                                            <p:menuitem value="Contents" url="#" />
+                                            <p:submenu label="Search" icon="ui-icon-search">
+                                                <p:submenu label="Text">
+                                                    <p:menuitem value="Workspace" url="#" />
+                                                </p:submenu>
+                                                <p:menuitem value="File" url="#" />
+                                            </p:submenu>
+                                        </p:submenu>
+                
+                                        <p:submenu label="Actions" icon="ui-icon-gear">
+                                            <p:submenu label="Ajax" icon="ui-icon-refresh">
+                                                <p:menuitem value="Save" actionListener="#{menuView.save}" icon="ui-icon-disk" update="messages"/>
+                                                <p:menuitem value="Update" actionListener="#{menuView.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
+                                            </p:submenu>
+                                            <p:submenu label="Non-Ajax" icon="ui-icon-newwin">
+                                                <p:menuitem value="Delete" actionListener="#{menuView.delete}" icon="ui-icon-close" update="messages" ajax="false"/>
+                                            </p:submenu>
+                                        </p:submenu>
+                
+                                        <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+                
+                                        <f:facet name="options">
+                                            <p:inputText style="margin-right:10px" placeholder="Search"/>
+                                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                                        </f:facet>
+                                    </p:menubar>
+                                </h:form>-->
+
+            </ui:define>
+
+
+            <!--forme-->
+
+
+
+
+        </ui:composition>
+
+    </body>
+</html>
